@@ -14,3 +14,17 @@ h1
     height: 40px;
     background-color: aqua;
 }
+
+.content
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.border_div
+{
+    border-radius: 10px;
+    border: solid 1px rgb(68, 67, 67);  
+}
