@@ -1,8 +1,7 @@
-from django.contrib.auth import authenticate
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from account.forms import RegistrationForm
-from django.contrib.auth import login
+from account.forms import RegistrationForm, AccountAuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 
 
 def home_view(request):
@@ -35,3 +34,35 @@ def register_view(request, *args, **kwargs):
         dic['form'] = form
         
     return render(request, 'account/register.html', dic)
+
+
+
+def login_view(request, *args, **kwargs):
+    user = request.user
+    if user.is_authenticated:
+        return redirect('account:account_home')
+    
+    if request.POST:
+        form = AccountAuthenticationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(email = email, password = raw_password)
+            
+            if user:
+                login(request, user)
+                return redirect('account:account_home')
+    
+    else:
+        form = AccountAuthenticationForm()
+    
+    dic = {
+        "login_form" : form
+    }
+    return render(request, "account/login.html", dic)
+    
+    
+    
+def logout_view(request):
+    logout(request)
+    return redirect('account:account_home')

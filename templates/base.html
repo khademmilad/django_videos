@@ -39,10 +39,11 @@
             
             <!-- login resister btn -->
             <!-- Example single danger button -->
+            {% if user.is_authenticated %}
                 <div class="btn-group">
                     <div class="img_profile_header" ></div>
                     <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Hi Milad
+                    Hi {{ user.username }}
                     </button>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -50,9 +51,14 @@
                     <li><a class="dropdown-item" href="#">Upload Video</a></li>
                     <li><a class="dropdown-item" href="#">Change Password</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:logout' %}">Sign out</a></li>
                     </ul>
                 </div>
+                
+            {% else %}
+                <a class="nav-item nav-link" href="{% url 'account:login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'account:register' %}">Register</a>
+            {% endif %}
         </nav>
         
         
