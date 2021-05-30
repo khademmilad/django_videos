@@ -13,6 +13,20 @@ def home_view(request):
     return render(request, "account/home.html")
 
 
+def profile_view(request, *args, **kwargs):
+    context = {}
+    user_id = kwargs.get('user_id')
+    try:
+        account = Account.objects.get(pk=user_id)
+    except:
+        return HttpResponse('Somthing went wrong!')
+        
+    context['user'] = account
+    
+    return render(request, 'account/profile.html', context)
+
+
+
 def register_view(request, *args, **kwargs):
     user = request.user
     if user.is_authenticated:

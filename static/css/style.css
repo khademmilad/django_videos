@@ -14,6 +14,11 @@ h1
     height: 40px;
     background-color: aqua;
 }
+.img_profile_header img
+{
+    width: 40px;
+    height: 40px;
+}
 
 .content
 {
@@ -28,4 +33,32 @@ h1
     border-radius: 10px;
     border: solid 1px rgb(68, 67, 67);
     padding: 20px;
+}
+.box
+{
+    display: flex;
+    padding: 20px;
+}
+.row
+{
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    border-right: solid 1px rgb(68, 67, 67);
+}
+
+.c_image img {
+    margin:20px 10px 10px 20px;
+    width: 100px;
+    height: 100px;
+    
+}
+.main{
+    flex: 2;
+    padding: 20px;
+}
+
+.main ul li{
+    list-style-type: none;
+    margin-top: 5px;
 }

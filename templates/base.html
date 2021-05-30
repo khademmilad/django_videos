@@ -41,12 +41,14 @@
             <!-- Example single danger button -->
             {% if user.is_authenticated %}
                 <div class="btn-group">
-                    <div class="img_profile_header" ></div>
+                    <div class="img_profile_header" >
+                        <img src="{{ user.profile_image.url }}" alt="">
+                    </div>
                     <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Hi {{ user.username }}
                     </button>
                     <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:profile' user_id=user.id %}">Profile</a></li>
                     <li><a class="dropdown-item" href="{% url 'account:edit' user_id=user.id %}">Edit Profile</a></li>
                     <li><a class="dropdown-item" href="#">Upload Video</a></li>
                     <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
