@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     
     # my apps
     'account',
+    'video',
 ]
 
 MIDDLEWARE = [
