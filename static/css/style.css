@@ -26,5 +26,6 @@ h1
 .border_div
 {
     border-radius: 10px;
-    border: solid 1px rgb(68, 67, 67);  
+    border: solid 1px rgb(68, 67, 67);
+    padding: 20px;
 }

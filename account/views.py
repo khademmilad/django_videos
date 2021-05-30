@@ -1,7 +1,11 @@
+from django.http import request
+from account.models import Account
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from account.forms import RegistrationForm, AccountAuthenticationForm
+from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.contrib.auth import authenticate, login, logout
+from django.conf import settings
+from django.core import files
 
 
 def home_view(request):
@@ -66,3 +70,45 @@ def login_view(request, *args, **kwargs):
 def logout_view(request):
     logout(request)
     return redirect('account:account_home')
+    
+
+def edit_account_view(request, *args, **kwrags):
+    if not request.user.is_authenticated:
+        return redirect('account:login')
+    user_id = kwrags.get('user_id')
+    account = Account.objects.get(pk=user_id)
+    
+    if account.pk != request.user.pk:
+        return HttpResponse("You cannot edit this profile")
+    dic = {}
+    if request.POST:
+        form = AccountUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('account:account_home')
+        else:
+            form = AccountUpdateForm(request.POST, instance=request.user,
+            initial={
+                'id' : account.id,
+                'email' : account.email,
+                'username' : account.username,
+                'profile_image' : account.profile_image,
+                'hide_email' : account.hide_email
+            }
+            )
+            dic['form'] = form
+    else:
+        form = AccountUpdateForm(
+            initial={
+                'id' : account.id,
+                'email' : account.email,
+                'username' : account.username,
+                'profile_image' : account.profile_image,
+                'hide_email' : account.hide_email
+            }           
+        )
+        dic['form'] = form
+        
+    dic['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+    return render(request, 'account/edit_profile_account.html',dic)
+    

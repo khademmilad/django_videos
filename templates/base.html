@@ -47,7 +47,7 @@
                     </button>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account:edit' user_id=user.id %}">Edit Profile</a></li>
                     <li><a class="dropdown-item" href="#">Upload Video</a></li>
                     <li><a class="dropdown-item" href="#">Change Password</a></li>
                     <li><hr class="dropdown-divider"></li>
