@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from video.models import Video, Subscriber
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 def new_release_video(request):
@@ -21,12 +21,31 @@ def detail_video_view(request, my_id):
     
     count_likes = video.count_likes()
     
+    is_liked = False
+    if video.likes.filter(id = request.user.id).exists():
+        is_liked = True
+    
     video.video_views = video.video_views + 1
     video.save()
     
     dic = {
         'video' : video,
         'count_likes' : count_likes,
+        'is_liked' : is_liked
     }
     return render(request, 'video/detail_video.html', dic)
+    
+    
+
+def like_view(request, pk):
+    video = get_object_or_404(Video, id=request.POST.get('video_id'))
+    Liked = False
+    if video.likes.filter(id = request.user.id).exists():
+        video.likes.remove(request.user)
+        Liked = False
+    else:
+        video.likes.add(request.user)
+        Liked = True
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     

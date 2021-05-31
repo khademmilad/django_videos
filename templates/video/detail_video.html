@@ -32,7 +32,18 @@
                                         <br>
                                         <div>
                                             
-                                            
+                                          <form action="{% url 'video:like_video' video.pk %}" method="POST">
+                                              {% csrf_token %}
+                                              {% if user.is_authenticated %}
+                                                {% if is_liked %}
+                                                    <button type="submit" name="video_id" value="{{ video.id }}" class="btn btn-secondary">Unlike</button>
+                                                {% else %}
+                                                <button type="submit" name="video_id" value="{{ video.id }}" class="btn btn-success">Like</button>
+                                                {% endif %}
+                                              {% else %}
+                                              <h6 style="color: red;">you must be logged in to like this video</h6>
+                                              {% endif %}
+                                          </form>  
                                         </div>
                                         <ul class="ul_info list-unstyled m-t-40 m-b-10">
                                             <li>views : {{ video.video_views }}</li>
