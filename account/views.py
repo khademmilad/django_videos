@@ -1,3 +1,4 @@
+from video.models import Subscriber, Video
 from django.http import request
 from account.models import Account
 from django.http.response import HttpResponse
@@ -16,12 +17,38 @@ def home_view(request):
 def profile_view(request, *args, **kwargs):
     context = {}
     user_id = kwargs.get('user_id')
+    profile_to_subscribe = Subscriber.objects.get_or_create(user=Account.objects.get(id=user_id))[0]
+  
     try:
         account = Account.objects.get(pk=user_id)
     except:
         return HttpResponse('Somthing went wrong!')
         
     context['user'] = account
+    
+    is_self = True
+    user = request.user
+    
+    if user.is_authenticated and user != account:
+        is_self = False
+    elif not user.is_authenticated:
+        is_self = False
+        
+    context['is_self'] = is_self
+    
+    subscribed = False
+    if request.user in profile_to_subscribe.subscribers.all():
+        subscribed = True
+    else:
+        subscribed = False
+    
+    count_subs = profile_to_subscribe.subscribers.all().count()
+    
+    context['subscribed'] = subscribed
+    context['count_subs'] = count_subs
+    
+    count_videos = Video.objects.filter(user = account).count()
+    context['count_videos'] = count_videos
     
     return render(request, 'account/profile.html', context)
 

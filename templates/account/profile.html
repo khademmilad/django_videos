@@ -15,13 +15,22 @@
                 
                 <div class="main">
                     <ul>
-                        <li>
-                            <span><button type="button" class="btn btn-danger">Subscribe</button></span>
-                            <span><button type="button" class="btn btn-secondary">Subscribed</button></span>
-                        </li>
+    {% if user.is_authenticated %}
+        {% if is_self == False %}
+            {% if subscribed %}                    
+            <li>
+                <span><button onclick="location.href='{% url 'video:subscribe' my_id=user.id %}'" type="button" class="btn btn-secondary">Subscribed</button></span>
+                
+            {% else %}
+                <span><button onclick="location.href='{% url 'video:subscribe' my_id=user.id %}'" type="button" class="btn btn-danger">Subscribe</button></span>
+                
+            {% endif %}    
+            </li>
+        {% endif %}
+    {% endif %} 
                         <li>Email : {{ user.email }}</li>
-                        <li>Subscribe : 25 </li>
-                        <li>Video : 5 </li>
+                        <li>Subscribe : {{ count_subs }} </li>
+                        <li>Videos : {{ count_videos }} </li>
                     </ul>
                 </div>
             </div>

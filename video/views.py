@@ -1,3 +1,4 @@
+from account.models import Account
 from django.shortcuts import get_object_or_404, render
 from video.models import Video, Subscriber
 from django.http import HttpResponse, HttpResponseRedirect
@@ -49,3 +50,19 @@ def like_view(request, pk):
     
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
+
+
+def sub_add(request, my_id):
+    profile_to_subscribe = Subscriber.objects.get_or_create(user = Account.objects.get(id = my_id))[0]
+    
+    subscriber = Account.objects.get(pk = request.user.id)
+    
+    subscribed = False
+    if subscriber in profile_to_subscribe.subscribers.all():
+        profile_to_subscribe.subscribers.remove(subscriber)
+        subscribed = True
+    else:
+        profile_to_subscribe.subscribers.add(subscriber)
+        subscribed = False
+        
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
