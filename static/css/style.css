@@ -1,51 +1,59 @@
-body
-{
-    background-color: aqua;
+.body{
+    background-color: aquamarine;
 }
 
-h1
-{
-    color: blueviolet;
+h1{
+    color:rgb(104, 59, 6);
 }
 
-.img_profile_header
-{
+.img_profile_header{
     width: 40px;
     height: 40px;
-    background-color: aqua;
+    color: rgb(19, 100, 3);
 }
-.img_profile_header img
-{
+
+.img_profile_header img{
     width: 40px;
     height: 40px;
 }
 
-.content
-{
+.content{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+
+
+
 }
-.border_div
-{
+
+.border_div{
     border-radius: 10px;
-    border: solid 1px rgb(68, 67, 67);
-    padding: 20px;
+    border: solid 1px rgb(68, 67, 67);   
 }
-.box
-{
+
+.box{
     display: flex;
     padding: 20px;
+
+    
 }
-.row
-{
+
+.b_row{
     align-items: center;
     justify-content: center;
     width: 170px;
-    border-right: solid 1px rgb(68, 67, 67);
+    align-items: center;
+    border-right:solid 1px rgb(68, 67, 67);
+    
 }
+
+
+.c_artist{
+    margin:0px 20px 10px 50px;
+}
+
 
 .c_image img {
     margin:20px 10px 10px 20px;
@@ -61,4 +69,24 @@ h1
 .main ul li{
     list-style-type: none;
     margin-top: 5px;
+}
+
+.box_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header_form {
+    border-bottom:solid 1px rgb(68, 67, 67) ;
+    margin-bottom: 20px;
+}
+.header_form h1{
+    padding: 20px;
+}
+
+.form_body{
+    padding: 20px;
+}
+.form_body p{
+    padding: 5px;
 }
