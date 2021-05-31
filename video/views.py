@@ -1,5 +1,5 @@
 from account.models import Account
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from video.models import Video, Subscriber
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -66,3 +66,18 @@ def sub_add(request, my_id):
         subscribed = False
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    
+
+def upload_video(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        desc = request.POST['desc']
+        video_file =  request.FILES['fileName']
+        user_obj = request.user
+        upload_video = Video(user=user_obj, title=title, desc=desc, video_file=video_file)
+        upload_video.save()
+        
+        return redirect('video:video_home')
+        
+    return render(request, 'video/upload_video.html')

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="content">
+  <div class="border_div">
+    <div class="box_form">
+      <div class="header_form">
+        <h1>Upload Video</h1>
+      </div>
+      <div class="form_body">
+
+        
+        <form action="{% url 'video:uplaod_video' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label >Title</label>
+                <input type="text" name="title" required>
+            </div><br>
+    
+            <div>
+                <label >Description</label>
+                <textarea name="desc" id="desc" style="height: 200px;" required></textarea>
+            </div><br>
+    
+            <div>
+                <label for="filename" >Select Video File</label>
+                <input type="file" name="fileName" id="filename" accept="video/*" required>
+            </div><br>
+        
+    
+            <button type="submit">Upload</button>
+        </form>        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

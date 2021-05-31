@@ -50,7 +50,7 @@
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'account:profile' user_id=user.id %}">Profile</a></li>
                     <li><a class="dropdown-item" href="{% url 'account:edit' user_id=user.id %}">Edit Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Upload Video</a></li>
+                    <li><a class="dropdown-item" href="{% url 'video:uplaod_video' %}">Upload Video</a></li>
                     <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'account:logout' %}">Sign out</a></li>
