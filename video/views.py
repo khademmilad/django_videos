@@ -2,6 +2,7 @@ from account.models import Account
 from django.shortcuts import get_object_or_404, redirect, render
 from video.models import Video, Subscriber
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 
 def new_release_video(request):
@@ -29,10 +30,21 @@ def detail_video_view(request, my_id):
     video.video_views = video.video_views + 1
     video.save()
     
+    account = video.user
+    
+    is_self = True
+    user = request.user
+    
+    if user.is_authenticated and user != account:
+        is_self = False
+    elif not user.is_authenticated:
+        is_self = False
+    
     dic = {
         'video' : video,
         'count_likes' : count_likes,
-        'is_liked' : is_liked
+        'is_liked' : is_liked,
+        'is_self' : is_self
     }
     return render(request, 'video/detail_video.html', dic)
     
@@ -93,3 +105,11 @@ def my_videos(request):
     }
     
     return render(request, 'video/my_videos.html', context)
+    
+    
+def delete_video(request, my_id):
+    video = get_object_or_404(Video, pk=my_id)
+    if request.method == 'POST':
+        video.delete()
+    
+    return HttpResponseRedirect(reverse('video:my_videos'))

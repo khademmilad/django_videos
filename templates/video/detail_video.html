@@ -50,6 +50,12 @@
                                             <li>Likes : {{ count_likes }} </li>
                                             <li>Date : {{ video.pup_date }} </li><br>
                                             
+                                          {% if is_self %}
+                                            <form action="{% url 'video:delete_video' my_id=video.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input class="btn btn-outline-danger" type="submit" value="Delete">
+                                            </form>
+                                          {% endif %}
 
                                         </ul>
                                     </div>
