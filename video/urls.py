@@ -6,6 +6,7 @@ from video.views import (
     like_view,
     sub_add,
     upload_video,
+    my_videos,
 )
 
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path('like/<int:pk>', like_view, name="like_video"),
     path('subscribe/<int:my_id>', sub_add, name="subscribe"),
     path('upload-video/', upload_video, name='uplaod_video'),
+    path('my-videos/', my_videos, name='my_videos'),
     
 ]

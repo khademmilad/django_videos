@@ -81,3 +81,15 @@ def upload_video(request):
         return redirect('video:video_home')
         
     return render(request, 'video/upload_video.html')
+    
+    
+def my_videos(request):
+    context = {}
+    user_id = request.user.id
+    my_videos = Video.objects.filter(user__id = user_id).order_by('pup_date')
+    
+    context = {
+        'my_videos' : my_videos
+    }
+    
+    return render(request, 'video/my_videos.html', context)
