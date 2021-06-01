@@ -1,3 +1,4 @@
+from django.db.models import query
 from account.models import Account
 from django.shortcuts import get_object_or_404, redirect, render
 from video.models import Video, Subscriber
@@ -123,3 +124,22 @@ class Updatevideo(UpdateView):
     
     def get_success_url(self):
         return reverse('video:my_videos')
+        
+        
+def my_subscriber(request):
+    dic = {}
+    curr_user = request.user
+    subs = Subscriber.objects.filter(subscribers = curr_user)
+    
+    list_of_id = []
+    for item in subs:
+        list_of_id.append(item.user.id)
+        
+    
+    querysert = Video.objects.filter(user__id__in = list_of_id)
+    
+    dic = {
+        'queryset' : querysert
+    }
+    
+    return render(request, 'video/my_subscribers.html', dic)

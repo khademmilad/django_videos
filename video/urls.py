@@ -9,6 +9,7 @@ from video.views import (
     my_videos,
     delete_video,
     Updatevideo,
+    my_subscriber,
 )
 
 
@@ -23,5 +24,6 @@ urlpatterns = [
     path('my-videos/', my_videos, name='my_videos'),
     path('delete/<int:my_id>', delete_video, name="delete_video"),
     path('edit-video/<int:pk>', Updatevideo.as_view(), name="edit_video"),
+    path('my-subscriber', my_subscriber, name='my_subscriber')
     
 ]
