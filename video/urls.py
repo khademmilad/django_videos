@@ -7,7 +7,8 @@ from video.views import (
     sub_add,
     upload_video,
     my_videos,
-    delete_video
+    delete_video,
+    Updatevideo,
 )
 
 
@@ -21,5 +22,6 @@ urlpatterns = [
     path('upload-video/', upload_video, name='uplaod_video'),
     path('my-videos/', my_videos, name='my_videos'),
     path('delete/<int:my_id>', delete_video, name="delete_video"),
+    path('edit-video/<int:pk>', Updatevideo.as_view(), name="edit_video"),
     
 ]

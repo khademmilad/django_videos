@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from video.models import Video, Subscriber
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views.generic.edit import UpdateView
 
 
 def new_release_video(request):
@@ -113,3 +114,12 @@ def delete_video(request, my_id):
         video.delete()
     
     return HttpResponseRedirect(reverse('video:my_videos'))
+    
+    
+class Updatevideo(UpdateView):
+    model = Video
+    template_name = 'video/edit-video.html'
+    fields = ['title', 'desc']
+    
+    def get_success_url(self):
+        return reverse('video:my_videos')

@@ -55,6 +55,10 @@
                                                 {% csrf_token %}
                                                 <input class="btn btn-outline-danger" type="submit" value="Delete">
                                             </form>
+                                            
+                                        </li><br>
+                                        <li><a class="btn btn-outline-info" href="{% url 'video:edit_video' pk=video.pk %}">Edit</a></li>
+                                            
                                           {% endif %}
 
                                         </ul>
