@@ -24,17 +24,21 @@ def profile_view(request, *args, **kwargs):
     except:
         return HttpResponse('Somthing went wrong!')
         
-    context['user'] = account
-    
-    is_self = True
-    user = request.user
-    
-    if user.is_authenticated and user != account:
-        is_self = False
-    elif not user.is_authenticated:
-        is_self = False
+    if account:   
+        context['id'] = account.id
+        context['username'] = account.username
+        context['email'] = account.email
+        context['profile_image'] = account.profile_image
         
-    context['is_self'] = is_self
+        is_self = True
+        user = request.user
+        
+        if user.is_authenticated and user != account:
+            is_self = False
+        elif not user.is_authenticated:
+            is_self = False
+            
+        context['is_self'] = is_self
     
     subscribed = False
     if request.user in profile_to_subscribe.subscribers.all():

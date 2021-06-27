@@ -1,39 +1,46 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-    <div class="content">
-        <div class="border_div">
-            <div class="box">
-                <div class="row">
-                    <div class="c_image">
-                        <img src="{{ user.profile_image.url }}" alt="">
-                    </div>
-                    <div class="c_artist">
-                        @ <a href="{% url 'account:profile' user_id=user.id %}">{{ user }}</a>
-                    </div>
-                </div>
-                
-                <div class="main">
-                    <ul>
-    {% if user.is_authenticated %}
-        {% if is_self == False %}
-            {% if subscribed %}                    
-            <li>
-                <span><button onclick="location.href='{% url 'video:subscribe' my_id=user.id %}'" type="button" class="btn btn-secondary">Subscribed</button></span>
-                
-            {% else %}
-                <span><button onclick="location.href='{% url 'video:subscribe' my_id=user.id %}'" type="button" class="btn btn-danger">Subscribe</button></span>
-                
-            {% endif %}    
-            </li>
-        {% endif %}
-    {% endif %} 
-                        <li>Email : {{ user.email }}</li>
-                        <li>Subscribe : {{ count_subs }} </li>
-                        <li>Videos : {{ count_videos }} </li>
-                    </ul>
-                </div>
-            </div>
+
+<div class="content">
+  <div class="border_div">
+    <div class="box">
+      <div class="b_row">
+        <div class="c_image">
+          <img src="{{ profile_image.url }}" alt="">
         </div>
+        <div class="c_artist">
+          @ <a href="{% url 'account:profile' user_id=id  %}">{{ username }}</a>
+        </div>
+      </div>
+      
+      <div class="main">
+        <ul class="ul_info">
+          <li>
+            {% if user.is_authenticated %}
+              {%  if is_self == False %}
+                  {% if subscribed %}
+                  <span><button onclick="location.href='{% url 'video:subscribe' my_id=id %}'"
+                    type="button" class="btn btn-secondary">Subscribed</button></span>
+                  {% else %}
+                  <span><button onclick="location.href='{% url 'video:subscribe' my_id=id %}'"
+                    type="button" class="btn btn-danger">Subscribe</button></span>
+                  {% endif %}
+              {% endif %}  
+            <!-- <span><button type="button" class="btn btn-danger">Subscribe</button></span> -->
+            <!-- <span><button type="button" class="btn btn-secondary">Subscribed</button></span> -->
+            {% endif %}
+          </li>
+          <li>Email : {{user.email}}</li>
+          <li>Subscribes : {{ count_subs }} </li>
+          <li>Videos : {{ count_videos }} </li>
+        </ul>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}
+
+
+
